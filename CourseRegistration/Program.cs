@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using CourseRegistration.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<CourseRegistrationContext>(options => options.UseNpgsql(
+    builder.Configuration.GetConnectionString("CourseRegistrationContext") ?? throw new InvalidOperationException("Connection string 'CourseRegistrationContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -21,4 +21,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CourseRegistration\CourseRegistration.csproj" />
+  </ItemGroup>
+
 </Project>
