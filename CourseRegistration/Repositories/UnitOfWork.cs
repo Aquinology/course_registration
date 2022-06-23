@@ -19,9 +19,9 @@ namespace CourseRegistration.Repositories
         public IStudentRepository Students { get; private set; }
         public IRegistrationSheetRepository RegistrationSheets { get; private set; }
 
-        public int Complete()
+        public async Task Complete()
         {
-            return _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

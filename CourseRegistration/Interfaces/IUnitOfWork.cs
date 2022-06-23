@@ -5,6 +5,6 @@
         ICourseRepository Courses { get; }
         IStudentRepository Students { get; }
         IRegistrationSheetRepository RegistrationSheets { get; }
-        int Complete();
+        Task Complete();
     }
 }

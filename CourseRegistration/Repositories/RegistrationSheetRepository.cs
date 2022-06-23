@@ -1,4 +1,5 @@
-﻿using CourseRegistration.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using CourseRegistration.Data;
 using CourseRegistration.Interfaces;
 using CourseRegistration.Models;
 
@@ -10,9 +11,9 @@ namespace CourseRegistration.Repositories
         {
         }
 
-        public IEnumerable<RegistrationSheet> GetCourseStudents(int courseid)
+        public async Task<IEnumerable<RegistrationSheet>> GetCourseStudents(int courseid)
         {
-            return _context.RegistrationSheets.Where(s => s.CourseId == courseid).ToList();
+            return await _context.RegistrationSheets.Where(s => s.CourseId == courseid).ToListAsync();
         }
     }
 }

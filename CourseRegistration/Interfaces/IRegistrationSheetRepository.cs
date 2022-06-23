@@ -4,6 +4,6 @@ namespace CourseRegistration.Interfaces
 {
     public interface IRegistrationSheetRepository : IGenericRepository<RegistrationSheet>
     {
-        IEnumerable<RegistrationSheet> GetCourseStudents(int courseid);
+        Task<IEnumerable<RegistrationSheet>> GetCourseStudents(int courseid);
     }
 }

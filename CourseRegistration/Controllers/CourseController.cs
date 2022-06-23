@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CourseRegistration.Interfaces;
+using CourseRegistration.Models;
 
 namespace CourseRegistration.Controllers
 {
@@ -16,9 +17,28 @@ namespace CourseRegistration.Controllers
         public async Task<IActionResult> Index()
         {
             return _unitOfWork.Courses != null ?
-                        View(_unitOfWork.Courses.GetAll()) :
+                        View(await _unitOfWork.Courses.GetAll()) :
                         Problem("Entity set 'CourseRegistrationContext.Courses'  is null.");
         }
 
+        // GET: Courses/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Courses/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id, Name")] Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.Courses.Add(course);
+                await _unitOfWork.Complete();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(course);
+        }
     }
 }
