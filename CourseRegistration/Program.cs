@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using CourseRegistration.Data;
+using CourseRegistration.Interfaces;
+using CourseRegistration.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,12 @@ builder.Services.AddDbContext<CourseRegistrationContext>(options => options.UseN
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<ICourseRepository, CourseRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<IRegistrationSheetRepository, RegistrationSheetRepository>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
