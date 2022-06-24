@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-//using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CourseRegistration.Models
 {
@@ -13,7 +13,7 @@ namespace CourseRegistration.Models
         public string Name { get; set; }
         [Required(ErrorMessage = "Это поле обязательно.")]
         [Range(1, 10000, ErrorMessage = "Значение этого поля не должно выходить из следующего диапазона: 1 - 10000.")]
-        //[Remote(action: "StudentIdUnique", controller: "Student")]
+        [Remote(action: "StudentIdUnique", controller: "Student", ErrorMessage = "Студент с таким Id уже существует.")]
         [Display(Name = "Student ID")]
         public int StudentId { get; set; }
         [Required(ErrorMessage = "Это поле обязательно.")]

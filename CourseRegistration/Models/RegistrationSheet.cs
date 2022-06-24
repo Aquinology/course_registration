@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-//using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace CourseRegistration.Models
@@ -10,8 +10,9 @@ namespace CourseRegistration.Models
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Это поле обязательно.")]
-        //[Remote(action: "StudentsInCourseUnique", controller: "StudentCourses",
-        //    AdditionalFields = nameof(CourseId), ErrorMessage = "Product name already exists under the chosen category. Please enter a different product name.")]
+        [Remote(action: "StudentsInCourseUnique", controller: "RegistrationSheet", 
+            AdditionalFields = nameof(CourseId), 
+            ErrorMessage = "Этот студент уже проходит данный курс.")]
         [Display(Name = "Student")]
         public int StudentId { get; set; }
         [ForeignKey("StudentId")]
@@ -22,7 +23,6 @@ namespace CourseRegistration.Models
         public int CourseId { get; set; }
         [ForeignKey("CourseId")]
         [ValidateNever]
-        //[Remote(action: "StudentIdUnique", controller: "Students")]
         public Course Course { get; set; }
     }
 }

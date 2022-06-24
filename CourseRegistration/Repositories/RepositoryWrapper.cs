@@ -3,11 +3,15 @@ using CourseRegistration.Interfaces;
 
 namespace CourseRegistration.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly CourseRegistrationContext _context;
 
-        public UnitOfWork(CourseRegistrationContext context)
+        public ICourseRepository Courses { get; private set; }
+        public IStudentRepository Students { get; private set; }
+        public IRegistrationSheetRepository RegistrationSheets { get; private set; }
+
+        public RepositoryWrapper(CourseRegistrationContext context)
         {
             _context = context;
             Courses = new CourseRepository(_context);
@@ -15,18 +19,9 @@ namespace CourseRegistration.Repositories
             RegistrationSheets = new RegistrationSheetRepository(_context);
         }
 
-        public ICourseRepository Courses { get; private set; }
-        public IStudentRepository Students { get; private set; }
-        public IRegistrationSheetRepository RegistrationSheets { get; private set; }
-
-        public async Task Complete()
+        public async Task Save()
         {
             await _context.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

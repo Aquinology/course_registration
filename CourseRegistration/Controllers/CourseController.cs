@@ -6,18 +6,24 @@ namespace CourseRegistration.Controllers
 {
     public class CourseController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepositoryWrapper _repository;
 
-        public CourseController(IUnitOfWork unitOfWork)
+        public CourseController(IRepositoryWrapper repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
+        }
+
+        // Validator
+        public IActionResult CourseNameUnique(string name)
+        {
+            return Json(_repository.Courses.CourseNameIsUnique(name));
         }
 
         // GET: Courses
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> List()
         {
-            return _unitOfWork.Courses != null ?
-                        View(await _unitOfWork.Courses.GetAll()) :
+            return _repository.Courses != null ?
+                        View(await _repository.Courses.GetList()) :
                         Problem("Entity set 'CourseRegistrationContext.Courses'  is null.");
         }
 
@@ -34,11 +40,50 @@ namespace CourseRegistration.Controllers
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Courses.Add(course);
-                await _unitOfWork.Complete();
-                return RedirectToAction(nameof(Index));
+                _repository.Courses.Add(course);
+                await _repository.Save();
+                return RedirectToAction(nameof(List));
             }
             return View(course);
+        }
+
+        // GET: Courses/Edit/5
+        public async Task<IActionResult> Edit(int id)
+        {
+            var course = await _repository.Courses.GetItem(id);
+            return course != null ? View(course) : NotFound();
+        }
+
+        // POST: Courses/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.Courses.Update(course);
+                await _repository.Save();
+                return RedirectToAction(nameof(List));
+            }
+            return View(course);
+        }
+
+        // GET: Courses/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            var course = await _repository.Courses.GetItem(id);
+            return course != null ? View(course) : NotFound();
+        }
+
+        // POST: Courses/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var course = await _repository.Courses.GetItem(id);
+            _repository.Courses.Remove(course);
+            await _repository.Save();
+            return RedirectToAction(nameof(List));
         }
     }
 }

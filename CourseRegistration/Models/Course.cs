@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-//using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CourseRegistration.Models
 {
@@ -9,8 +9,8 @@ namespace CourseRegistration.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "Это поле обязательно.")]
         [MaxLength(200, ErrorMessage = "Длина этого поля не должна привышать 200 символов.")]
-        [RegularExpression(@"^[a-zA-Z0-9\s\-\,\.\&\(\)\:\;\?]*$", ErrorMessage = "Название курса может иметь латинские буквы от a до z, цифры от 0 до 9 и следующие символы: - . , & ( ) : ; ?, а также должно начинаться с большой буквы.")]
-        //[Remote(action: "CourseNameUnique", controller: "Course")]
+        [RegularExpression(@"^[a-zA-Z0-9\s\-\,\.\&\(\)\:\;\?]*$", ErrorMessage = "Название курса может иметь латинские буквы от a до z, цифры от 0 до 9 и следующие символы: - . , & ( ) : ; ?.")]
+        [Remote(action: "CourseNameUnique", controller: "Course", ErrorMessage = "Такое имя курса уже существует.")]
         public string Name { get; set; }
     }
 }

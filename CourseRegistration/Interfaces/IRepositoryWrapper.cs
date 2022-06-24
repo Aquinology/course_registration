@@ -1,10 +1,10 @@
 ﻿namespace CourseRegistration.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IRepositoryWrapper
     {
         ICourseRepository Courses { get; }
         IStudentRepository Students { get; }
         IRegistrationSheetRepository RegistrationSheets { get; }
-        Task Complete();
+        Task Save();
     }
 }

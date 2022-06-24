@@ -15,7 +15,7 @@ builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericReposi
 builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<IRegistrationSheetRepository, RegistrationSheetRepository>();
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
 
 var app = builder.Build();
 

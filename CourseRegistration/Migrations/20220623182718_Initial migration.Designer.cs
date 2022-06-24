@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CourseRegistration.Migrations
 {
     [DbContext(typeof(CourseRegistrationContext))]
-    [Migration("20220623072323_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220623182718_Initial migration")]
+    partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

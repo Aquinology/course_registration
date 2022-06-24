@@ -15,17 +15,17 @@ namespace CourseRegistration.Repositories
             _context = context;
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetItem(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetList()
         {
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
+        public async Task<IEnumerable<T>> FindList(Expression<Func<T, bool>> expression)
         {
             return await _context.Set<T>().Where(expression).ToListAsync();
         }
@@ -35,20 +35,14 @@ namespace CourseRegistration.Repositories
             _context.Set<T>().Add(entity);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public void Update(T entity)
         {
-            _context.Set<T>().AddRange(entities);
+            _context.Set<T>().Update(entity);
         }
 
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
         }
-
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            _context.Set<T>().RemoveRange(entities);
-        }
-
     }
 }

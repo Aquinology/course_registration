@@ -9,5 +9,10 @@ namespace CourseRegistration.Repositories
         public StudentRepository(CourseRegistrationContext context) : base(context)
         {
         }
+
+        public bool StudentIdIsUnique(int studentid)
+        {
+            return !(_context.Students?.Any(s => s.StudentId == studentid)).GetValueOrDefault();
+        }
     }
 }
