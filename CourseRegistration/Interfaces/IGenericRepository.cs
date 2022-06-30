@@ -8,7 +8,7 @@ namespace CourseRegistration.Interfaces
         Task<IEnumerable<T>> GetList();
         Task<IEnumerable<T>> FindList(Expression<Func<T, bool>> expression);
         void Add(T entity);
-        void Update(T entities);
+        void Update(T entity);
         void Remove(T entity);
     }
 }
